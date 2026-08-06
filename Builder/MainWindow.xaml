@@ -1,0 +1,91 @@
+﻿<Window x:Class="Builder.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Builder"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="750" Width="850">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="4*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+        <ListBox x:Name="EntityList" Grid.Row="0" Grid.Column="0" Margin="5" SelectionChanged="EntityList_SelectionChanged" d:ItemsSource="{d:SampleData ItemCount=10}"/>
+            <Button x:Name="ShowEntityList" Grid.Row="1" Margin="5" Content="Show Entities" Click="ShowEntityList_Click"/>
+        </Grid>
+
+        <ListBox x:Name="BuildOutput" Grid.Row="0" Grid.Column="1" Margin="5"
+                BorderThickness="1"
+                ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <UniformGrid Rows="2" Columns="4" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Border Width="120"
+                            Height="70"
+                            Margin="8"
+                            BorderBrush="Black"
+                            BorderThickness="2"
+                            >
+                        <StackPanel Margin="4">
+                            <TextBlock Text="{Binding DisplayText}"/>
+
+                        </StackPanel>
+                    </Border>
+                           
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <TextBox x:Name="StatList" TextWrapping="Wrap" Grid.Row="0" Grid.Column="2" Margin="5"/>
+            
+        <Button x:Name="Add_Mod" Content="Add Mod" Grid.Row="1" Grid.Column="0" Margin="5" Click="Add_Mod_Click"/>
+        <ListBox x:Name="ModList" d:ItemsSource="{d:SampleData ItemCount=10}" Grid.Row="1" Grid.Column="1" Margin="5" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Disabled">
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Horizontal"/>
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Border Width="175"
+                            Height="80"
+                            Margin="5"
+                            BorderThickness="1"
+                            BorderBrush="Black"
+                            CornerRadius="5">
+                        <TextBlock Text="{Binding DisplayText}"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   TextWrapping="Wrap"
+                                   TextAlignment="Center"/>
+                    </Border>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+
+        </ListBox>
+        
+        <Button x:Name="CalculateButton" Content="Calculate" Grid.Row="1" Grid.Column="3" Margin="5" Click="CalculateButton_Click"/>
+        
+         
+
+
+    </Grid>
+</Window>
