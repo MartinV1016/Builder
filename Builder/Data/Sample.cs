@@ -20,7 +20,7 @@ namespace Builder.Data
                     new Stat("Damage",100),
                     new Stat("Crit",30),
                     new Stat("Status",10),
-                    new Stat("Fire Rate",2.1f)
+                    new Stat("Fire Rate",9.58f)
                 }
             },
             new Entity
@@ -41,37 +41,87 @@ namespace Builder.Data
             new Mod
             {
                 Name="Serration",
-                StatMod="Damage",
-                Type=Modifier.Percent,
-                Value=90
+                Effects=
+                {
+                    new ModEffect
+                    {
+                        StatMod="Damage",
+                        Type=Modifier.Percent,
+                        Value=90
+                    }
+                }
             },
             new Mod
             {
                 Name="Caliber",
-                StatMod="Damage",
-                Type=Modifier.Flat,
-                Value=50
+                Effects=
+                {
+                    new ModEffect
+                    {
+                        StatMod="Damage",
+                        Type=Modifier.Flat,
+                        Value=50
+                    }
+                }
             },
             new Mod
             {
                 Name="Aptitude",
-                StatMod="Status",
-                Type=Modifier.Percent,
-                Value=30
+                Effects=
+                {
+                    new ModEffect
+                    {
+                        StatMod="Status",
+                        Type=Modifier.Percent,
+                        Value=30
+                    }
+                }
             },
             new Mod
             {
                 Name="Broken Aptititude",
-                StatMod="Status",
-                Type=Modifier.Flat,
-                Value=5
+                Effects =
+                {
+                    new ModEffect
+                    {
+                        StatMod="Status",
+                        Type=Modifier.Flat,
+                        Value=5 
+                    } 
+                }
+
             },
             new Mod
             {
                 Name="Strike",
-                StatMod="Crit",
-                Type=Modifier.Percent,
-                Value=50
+                Effects= 
+                {
+                    new ModEffect
+                    {
+                        StatMod="Crit",
+                        Type=Modifier.Percent,
+                        Value=50
+                    }
+                }
+            },
+            new Mod
+            {
+                Name="Heavy",
+                Effects =
+                {
+                    new ModEffect
+                    {
+                        StatMod="Damage",
+                        Type=Modifier.Flat,
+                        Value=25
+                    },
+                    new ModEffect
+                    {
+                        StatMod="Fire Rate",
+                        Type=Modifier.Percent,
+                        Value=45
+                    }
+                }
             }
         };
 

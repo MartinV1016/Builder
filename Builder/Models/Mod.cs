@@ -6,18 +6,12 @@ using System.Threading.Tasks;
 
 namespace Builder.Models
 {
-    public enum Modifier
-    {
-        Flat,
-        Percent
-    }
+    
 
     public class Mod
     {
         public string Name { get; set; }
-        public string StatMod { get; set; }
-        public Modifier Type { get; set; }
-        public float Value { get; set; }
+        public List<ModEffect> Effects { get; set; } = new();
 
         public override string ToString()
         {
@@ -28,8 +22,14 @@ namespace Builder.Models
         {
             get
             {
-                string TypeText = Type == Modifier.Percent ? "%" : "";
-                return $"{Name}\n+{Value}{TypeText} {StatMod}";
+                
+                string text=Name;
+                foreach (ModEffect effect in Effects) {
+                    string TypeText = effect.Type == Modifier.Percent ? "%" : "";
+                    text += $"\n+{effect.Value}{TypeText} {effect.StatMod}";
+                }
+
+                return text;
             }
 
         }

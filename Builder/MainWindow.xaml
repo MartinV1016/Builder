@@ -54,8 +54,15 @@
         </ListBox>
 
         <TextBox x:Name="StatList" TextWrapping="Wrap" Grid.Row="0" Grid.Column="2" Margin="5"/>
-            
-        <Button x:Name="Add_Mod" Content="Add Mod" Grid.Row="1" Grid.Column="0" Margin="5" Click="Add_Mod_Click"/>
+        <Grid Grid.Row="1" Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+        <Button x:Name="Add_Mod" Content="Add Mod" Grid.Row="0" Grid.Column="0" Margin="5" Click="Add_Mod_Click"/>
+            <Button x:Name="Remove_Mod" Content="Remove Mod" Grid.Row="1" Grid.Column="0" Margin="5" Click="Remove_Mod_Click"/>
+
+        </Grid>
         <ListBox x:Name="ModList" d:ItemsSource="{d:SampleData ItemCount=10}" Grid.Row="1" Grid.Column="1" Margin="5" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Disabled">
             <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>

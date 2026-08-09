@@ -41,10 +41,18 @@ namespace Builder
             Entity selected = (Entity)EntityList.SelectedItem;
             currentBuild = new Build
             {
-                Entity = selected
+                Entity = selected,
+                CalculatedStats = selected.BaseStats.Select(stat => new Stat(stat.Name, stat.Value)).ToList()
             };
             EntityList.Visibility = Visibility.Collapsed;
+            StatList.Text = $"";
+            StatList.Text = $"Stats:\n";
+            foreach (var item in selected.BaseStats)
+            {
+                StatList.Text += $"{item.Name}:{item.Value}\n\n";
+            }
             UpdateLayout();
+            
             RefreshBuild();
             
         }
@@ -59,8 +67,18 @@ namespace Builder
                 MessageBox.Show("Too much mods");
                 return;
             }
-            currentBuild.Mods.Add(selectedMod);
+            if (currentBuild.Mods.Contains(selectedMod))
+            {
+                MessageBox.Show("You can't have duplicate mods!");
+                return;
+            }
+            else
+            {
+                currentBuild.Mods.Add(selectedMod);
+            }
+                
             RefreshBuild();
+            CalculateButton_Click(sender, e);
         }
 
         private void CalculateButton_Click(object sender, RoutedEventArgs e)
@@ -74,7 +92,8 @@ namespace Builder
             StatList.Text = $"Stats:\n";
 
             foreach (var stat in currentBuild.CalculatedStats) {
-                StatList.Text += $"{stat.Name}: {stat.Value}\n\n";
+                var baseStat=currentBuild.Entity.BaseStats.First(s => s.Name == stat.Name);
+                StatList.Text += $"{stat.Name}:{baseStat.Value} -> {stat.Value}\n\n";
             }
         }
 
@@ -96,6 +115,17 @@ namespace Builder
             {
                 EntityList.Visibility = Visibility.Visible;
             }
+        }
+
+        private void Remove_Mod_Click(object sender, RoutedEventArgs e)
+        {
+            if (currentBuild == null) return;
+
+            if (BuildOutput.SelectedItem is not Mod selectedMod) return;
+            
+            currentBuild.Mods.Remove(selectedMod);
+            RefreshBuild();
+            CalculateButton_Click(sender, e);
         }
     }
 }

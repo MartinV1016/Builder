@@ -13,5 +13,6 @@ namespace Builder.Models
         public List<Mod> Mods { get; set; }=new List<Mod>();
 
         public List<Stat> CalculatedStats { get; set; } =new List<Stat>();
+        
     }
 }

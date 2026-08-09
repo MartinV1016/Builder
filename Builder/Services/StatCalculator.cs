@@ -16,22 +16,25 @@ namespace Builder.Services
 
             foreach (Mod mods in build.Mods)
             {
-                Stat? affectedStat = calculatedStats.FirstOrDefault(stat => stat.Name == mods.StatMod);
-
-                if (affectedStat == null)
+                foreach (ModEffect effect in mods.Effects)
                 {
-                    continue;
-                }
+                    Stat? affectedStat = calculatedStats.FirstOrDefault(stat => stat.Name == effect.StatMod);
 
-                switch (mods.Type)
-                {
-                    case Modifier.Flat:
-                        affectedStat.Value += mods.Value;
-                        break;
+                    if (affectedStat == null)
+                    {
+                        continue;
+                    }
 
-                    case Modifier.Percent:
-                        affectedStat.Value*= 1 + mods.Value/100;
-                        break;
+                    switch (effect.Type)
+                    {
+                        case Modifier.Flat:
+                            affectedStat.Value += effect.Value;
+                            break;
+
+                        case Modifier.Percent:
+                            affectedStat.Value *= (1 + effect.Value / 100);
+                            break;
+                    }
                 }
             }
 
