@@ -64,7 +64,7 @@ namespace Builder
             if (ModList.SelectedItem is not Mod selectedMod) return;
             if (currentBuild.Mods.Count >= 8)
             {
-                MessageBox.Show("Too much mods");
+                MessageBox.Show("Too much mods!");
                 return;
             }
             if (currentBuild.Mods.Contains(selectedMod))
