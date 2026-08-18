@@ -122,10 +122,50 @@ namespace Builder
             if (currentBuild == null) return;
 
             if (BuildOutput.SelectedItem is not Mod selectedMod) return;
+
+            RemoveMod(selectedMod);
+        }
+
+        private void Remove_Selected_Mod_Click(Object sender, RoutedEventArgs e)
+        {
+            if(sender is Button button && button.Tag is Mod mod)
+            {
+                RemoveMod(mod);
+            }
+        }
+
+        private void CalculateDpsButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (currentBuild == null) return;
+            float atk = 0f;
+            float spd =  0f;
+            StatCalculator calculator = new StatCalculator();
+            foreach(var stat in currentBuild.CalculatedStats)
+            {
+                if (stat.Name == "Damage")
+                {
+                    atk = (float)stat.Value;
+                }
+                else if(stat.Name == "Fire Rate")
+                {
+                    spd = (float)stat.Value;
+                }
+                else
+                {
+                    continue;
+                }
+            }
+            DPSText.Text=$"Damage per Second: {calculator.CalculateDPS(atk, spd)}\n";
             
-            currentBuild.Mods.Remove(selectedMod);
+        }
+
+        private void RemoveMod(Mod mod)
+        {
+            if(currentBuild == null) return;
+
+            currentBuild.Mods.Remove(mod);
             RefreshBuild();
-            CalculateButton_Click(sender, e);
+            CalculateButton_Click(null!, null!);
         }
     }
 }

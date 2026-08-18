@@ -14,9 +14,9 @@ namespace Builder.Services
         {
             List<Stat> calculatedStats = build.Entity.BaseStats.Select(stat => new Stat(stat.Name, stat.Value)).ToList();
 
-            foreach (Mod mods in build.Mods)
+            foreach (Mod mod in build.Mods)
             {
-                foreach (ModEffect effect in mods.Effects)
+                foreach (ModEffect effect in mod.Effects)
                 {
                     Stat? affectedStat = calculatedStats.FirstOrDefault(stat => stat.Name == effect.StatMod);
 
@@ -39,6 +39,10 @@ namespace Builder.Services
             }
 
             return calculatedStats;
+        }
+
+        public float CalculateDPS(float damage, float atkspeed) {
+            return damage * atkspeed;
         }
     }
 }
